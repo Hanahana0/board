@@ -3,6 +3,7 @@ package co.kr.dao;
 import java.util.List;
 
 import co.kr.vo.BoardVO;
+import co.kr.vo.Criteria;
 
 public interface BoardDAO {
 
@@ -10,8 +11,11 @@ public interface BoardDAO {
 	public void write(BoardVO boardVO) throws Exception;
 
 	// 게시물 목록 가져오기
-	public List<BoardVO> list() throws Exception;
+	public List<BoardVO> list(Criteria cri) throws Exception;
 
+	// 게시물 총 갯수
+	public int listCount() throws Exception;
+	
 	// 게시물 조회
 	public BoardVO read(int bno) throws Exception;
 

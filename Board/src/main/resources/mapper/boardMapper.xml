@@ -49,4 +49,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY BNO DESC
 	</select>
 
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(BNO)
+			FROM MP_BOARD
+			WHERE BNO > 0
+		]]>
+	</select>
+	
+
 </mapper>

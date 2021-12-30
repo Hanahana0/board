@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.kr.service.BoardService;
 import co.kr.vo.BoardVO;
+import co.kr.vo.Criteria;
+import co.kr.vo.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")
@@ -35,9 +37,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception {
+	public String list(Model model, Criteria cri) throws Exception {
 		logger.info("list");
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(cri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.listCount());
+		model.addAttribute("pageMaker", pageMaker);
+
 		return "../board/list";
 	}
 
