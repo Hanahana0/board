@@ -5,19 +5,21 @@ import javax.inject.Inject;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.kr.service.BoardService;
 import co.kr.vo.BoardVO;
-import co.kr.vo.Criteria;
 import co.kr.vo.PageMaker;
+import co.kr.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
 
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final org.slf4j.Logger logger =
+			LoggerFactory.getLogger(BoardController.class);
 
 	@Inject
 	BoardService service;
@@ -37,13 +39,17 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, Criteria cri) throws Exception {
+	public String list(Model model, @ModelAttribute("scri")
+				SearchCriteria scri) throws Exception {
+		
 		logger.info("list");
-		model.addAttribute("list", service.list(cri));
-
+		
+		model.addAttribute("list", service.list(scri));
+		
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.listCount());
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.listCount(scri));
+		
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "../board/list";

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import co.kr.vo.BoardVO;
 import co.kr.vo.Criteria;
+import co.kr.vo.SearchCriteria;
 
 @Repository
 public class BoardDAOimpi implements BoardDAO {
@@ -24,13 +25,19 @@ public class BoardDAOimpi implements BoardDAO {
 
 	// 게시물 목록 조회
 	@Override
-	public List<BoardVO> list(Criteria cri) throws Exception {
-		return ss.selectList("boardMapper.list");
+	public List<BoardVO> list(SearchCriteria scri) throws Exception {
+		
+		System.out.println(scri.getRowStart()+"로우스타트.");
+		System.out.println(scri.getRowEnd()+"로우앤드입니다.");
+		System.out.println(scri.getKeyword()+"키워드입니다.");
+		System.out.println(scri.getSearchType()+"옵션입니다.");
+		return ss.selectList("boardMapper.listPage", scri);
 	}
 	
 	//게시물 총 갯수
-	public int listCount() throws Exception {
-		return ss.selectOne("boardMapper.listCount");
+	@Override
+	public int listCount(SearchCriteria scri) throws Exception {
+		return ss.selectOne("boardMapper.listCount", scri);
 	}
 
 	// 게시물 조회

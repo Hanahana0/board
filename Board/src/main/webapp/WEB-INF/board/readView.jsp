@@ -66,7 +66,7 @@
 						</tr>
 						<tr>
 							<td><label for="regdate">작성날짜</label> <c:out
-									value="${fn:substring(read.regdate, 0, 16) }" /></td>
+									value="${fn:substring(read.regdate, 0, 10) }" /></td>
 						</tr>
 					</tbody>
 				</table>

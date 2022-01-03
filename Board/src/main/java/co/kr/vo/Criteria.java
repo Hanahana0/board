@@ -2,10 +2,10 @@ package co.kr.vo;
 
 public class Criteria {
 
-	private int page;
-	private int perPageNum = 10;
-	private int rowStart;
-	private int rowEnd;
+	private int page; // 현재 페이지
+	private int perPageNum; // 한페이지에 보여질 게시물 수
+	private int rowStart; // 블럭에 시작레코드
+	private int rowEnd; // 블럭에 마지막 레코드
 
 	public Criteria() {
 		this.page = 1;
